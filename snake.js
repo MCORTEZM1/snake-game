@@ -26,7 +26,8 @@ window.onload = function() {
     placeFood();
     document.addEventListener('keyup', changeDirection); 
     // update paints on the canvas and needs to be called multiple times for repaint
-    update();
+    // update();
+    setInterval(update, 1000/10) // every 100 milliseconds it will update
 };
 
 
@@ -35,15 +36,15 @@ function update() {
     context.fillStyle = "black"; 
     context.fillRect(0, 0, board.width, board.height);
 
-    // style of the snake
-    context.fillStyle ="lime"; 
-    snakeX += velocityX; 
-    snakeY += velocityY;
-    context.fillRect(snakeX, snakeY, blockSize, blockSize);
-
     // style of the food 
     context.fillStyle = "red";
     context.fillRect(foodX, foodY, blockSize, blockSize);
+
+    // style of the snake
+    context.fillStyle ="lime"; 
+    snakeX += velocityX * blockSize; 
+    snakeY += velocityY * blockSize;
+    context.fillRect(snakeX, snakeY, blockSize, blockSize);
 };
 
 function changeDirection(e) { 
@@ -59,7 +60,7 @@ function changeDirection(e) {
         velocityX = -1; 
         velocityY = 0; 
     };
-    if (e.code == "ArrowUp") { 
+    if (e.code == "ArrowRight") { 
         velocityX = 1; 
         velocityY = 0; 
     };
